@@ -1,0 +1,123 @@
+html { height: 100% }
+body { height: 100%; }
+table { border-collapse: collapse; } 
+
+body {
+	font-family: 'lucida grande',verdana,helvetica,arial,sans-serif;
+	font-size: 90%;
+	margin: 0;
+	position: relative;
+	
+    width:100%;
+    /*height:auto !important;  real browsers */
+    height:100%; /* IE6: treaded as min-height*/
+    min-height:100%; /* real browsers */
+    margin:0 auto;
+    min-height:100%;
+    overflow:hidden;
+    position:relative;
+}
+
+form {
+	text-align: right;
+}
+
+form .input {
+	padding: 5px;
+}
+
+form label {
+	text-transform: capitalize;
+	margin-right: 10px;
+}
+
+input, textarea {
+	width: 100px;
+}
+
+select {
+	width: 104px;
+}
+
+input[type=submit] {
+	width: auto;
+}
+
+#p1-map {
+	width: 100%;
+	height: 100%;
+}
+#p1Header {
+    height:36px;
+    position:relative;
+	color: #ccc;
+	background: #444;
+}
+#p1Header a {
+	color: #ccc;
+}
+#p1Left {
+    left:0;
+    bottom:0;
+    top:0;
+    overflow:hidden;
+    padding-bottom:0px;
+    margin-top:36px;
+    position:absolute;
+    width:300px;
+    display: none; /*hide this for now*/
+}
+#p1Content {
+    right:0;
+    bottom:0;
+    top:0;
+    left: 0px; /*because left is hidden now, should be 300 or same as #p1Left width*/
+    overflow:hidden;
+    padding-bottom:0px; /*increase for footer, need to increase #p1Left too*/
+    margin-top:36px;
+    position:absolute;
+}
+
+.header-divider {
+	display: inline-block;
+    height: 100%;
+    margin: 0 5px;
+    width: 1px;
+	background: #FFFFFF;
+	vertical-align: middle;
+}
+
+.p1-hover {
+	position: absolute;
+	background: rgba(0, 0, 0, 0.6);
+}
+
+.p1-hover.top {
+	top: 10px;
+}
+
+.p1-hover.left {
+	left: 10px;
+}
+
+.p1-hover.right {
+	right: 10px;
+}
+
+.p1-hover.bottom {
+	bottom: 10px;
+}
+
+#p1-error {
+	background: rgba(0, 0, 0, 0.6);
+	margin-left: 10%;
+	width: 80%;
+	height: 80%;
+	border: 1px  solid #555;
+	-moz-box-shadow: 0 0 10px #333;
+	-webkit-box-shadow: 0 0 10px#333;
+	box-shadow: 0 0 10px #333;
+	font-size: 20px;
+	text-align: center;
+	position: inherit;
+}
