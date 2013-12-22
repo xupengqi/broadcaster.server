@@ -118,7 +118,7 @@ class Model extends MVC {
             //$this->context->loadHelpers(array('response'));
             //$this->context->helpers['response']->setError($this->ERR_ID_SQL_ERROR,
             //    "Unable to find matching record in {$this->table} table with condition: ".print_r($cond,true));
-            return array();
+            return new stdClass();
         }
     }
 
