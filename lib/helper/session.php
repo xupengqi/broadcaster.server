@@ -7,11 +7,11 @@ class SessionHelper extends Helper {
         if(count($user) > 0) {
             $pass = $this->context->helpers['security']->crypt($password, $user['salt']);
             if($user['pass'] != $pass) {
-                $this->context->helpers['response']->setError($this->ERR_ID_WRONG_PASS);
+                $this->context->helpers['response']->setError('AUTHENTICATION_FAILED');
             }
         }
         else {
-            $this->context->helpers['response']->setError($this->ERR_ID_USER_NOT_FOUND);
+            $this->context->helpers['response']->setError('AUTHENTICATION_FAILED');
         }
     }
 
@@ -46,7 +46,7 @@ class SessionHelper extends Helper {
         $user = $this->context->models['user']->getSingle(array('id'=>$params['userId'], 'token'=>$params['token']));
         if (empty($user)) {
             $this->context->loadHelpers(array('response'));
-            $this->context->helpers['response']->setError($this->ERR_ID_REQUIRE_LOGIN);
+            $this->context->helpers['response']->setError('REQUIRE_LOGIN');
             $this->context->helpers['response']->flush();
             exit;
         }

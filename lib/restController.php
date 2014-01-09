@@ -34,7 +34,7 @@ class RESTController extends Controller {
 
     protected function parameterError($param) {
         $this->context->loadHelpers(array('response'));
-        $this->context->helpers['response']->setError($this->ERR_ID_MISSING_PARAMETER, print_r($param,true));
+        $this->context->helpers['response']->setError('INTERNAL_ERROR');
         $this->context->helpers['response']->flush();
         exit;
     }

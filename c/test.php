@@ -34,7 +34,6 @@ class TestController extends PostsController {
         $postId = $this->context->models['post']->create($params['data']);
         $voteId = $this->context->models['vote']->create(array('userId'=>$params['data']['userId'],'postId'=>$postId,'voteDir'=>1));
         
-        //$this->context->helpers['response']->setError($this->ERR_ID_MISSING_PARAMETER, print_r($tags,true));
         $tags = $this->processTags($tags);
         foreach($tags as $tag) {
             $voteId = $this->context->models['post_tag']->create(array('postId'=>$postId,'tagId'=>$tag['id']));

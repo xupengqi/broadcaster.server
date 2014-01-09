@@ -90,7 +90,7 @@ class AccountController extends RESTController {
 
         $user = $this->context->models['user']->getMulti(array('username'=>$params['data']['username']));
         if (count($user) > 0) {
-            $this->context->helpers['response']->setError($this->ERR_ID_USER_ALREADY_EXIST);
+            $this->context->helpers['response']->setError('USERNAME_EXISTS');
             $this->context->helpers['response']->flush();
             exit;
         }

@@ -11,7 +11,7 @@ class Model extends MVC {
         $this->mysqli = new mysqli($config['db']['host'], $config['db']['user'], $config['db']['pass'], $config['db']['name']);
         if ($this->mysqli->connect_error) {
             $this->context->loadHelpers(array('response'));
-            $this->context->helpers['response']->setError($this->ERR_ID_SQL_ERROR, $this->mysqli->connect_error);
+            $this->context->helpers['response']->setError('INTERNAL_ERROR');
             $this->context->helpers['response']->flush();
             exit();
         }
@@ -115,9 +115,6 @@ class Model extends MVC {
             return $data[0];
         }
         else {
-            //$this->context->loadHelpers(array('response'));
-            //$this->context->helpers['response']->setError($this->ERR_ID_SQL_ERROR,
-            //    "Unable to find matching record in {$this->table} table with condition: ".print_r($cond,true));
             return new stdClass();
         }
     }
@@ -183,15 +180,10 @@ class Model extends MVC {
 
     protected function setSqlError($query) {
         $this->context->loadHelpers(array('response'));
-        error_log($query);
 
         if(!empty($this->mysqli->error)) {
-            if($this->context->isDebugging()) {
-                $this->context->helpers['response']->setError($this->ERR_ID_SQL_ERROR, "[{$this->mysqli->errno}] {$this->mysqli->error}\n$query", $this->mysqli->errno);
-            }
-            else {
-                $this->context->helpers['response']->setError($this->ERR_ID_SQL_ERROR, "[{$this->mysqli->errno}] {$this->mysqli->error}", $this->mysqli->errno);
-            }
+            error_log($query);
+            $this->context->helpers['response']->setError('INTERNAL_ERROR');
             error_log("[{$this->mysqli->errno}] {$this->mysqli->error}");
 
             return true;
