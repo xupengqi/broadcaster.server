@@ -151,7 +151,7 @@ class PostsController extends RESTController {
         $this->context->loadHelpers(array('response'));
 
         $cond = array('userId'=>$params['userId']);
-        $cond = $this->processAfter($params, $cond);
+        $cond = $this->processBefore($params, $cond);
         $posts = $this->context->models['post_active']->getMulti($cond, false, 'LIMIT 10');
 
         $this->context->helpers['response']->setData('posts', $posts);
@@ -282,7 +282,7 @@ class PostsController extends RESTController {
         return $result;
     }
 
-    private function processAfter($params, $cond) {
+    private function processBefore($params, $cond) {
         if (isset($params['after'])) {
             $cond['id'] = $params['after'];
             $cond['operators'] = array('id'=>'<');
@@ -290,6 +290,14 @@ class PostsController extends RESTController {
         return $cond;
     }
 
+    private function processAfter($params, $cond) {
+        if (isset($params['after'])) {
+            $cond['id'] = $params['after'];
+            $cond['operators'] = array('id'=>'>');
+        }
+        return $cond;
+    }
+    
     private function processPostContent($params, $baseContent = array()) {
         $content = $baseContent;
 
