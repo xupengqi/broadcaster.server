@@ -120,7 +120,7 @@ class PostsController extends RESTController {
 
         $cond = array('parentId'=>$params['parentId']);
         $cond = $this->processAfter($params, $cond);
-        $comments = $this->context->models['post_active']->getMulti($cond, false, 'LIMIT 10');
+        $comments = $this->context->models['post_active']->getMulti($cond, false, 'ORDER BY id ASC LIMIT 10');
 
         if ($params['includeParent']) {
             $post = $this->context->models['post_active']->getSingle(array('id'=>$params['parentId']));
@@ -138,7 +138,7 @@ class PostsController extends RESTController {
 
         if (!empty($params['ids'])) {
             $cond = array('id'=>"({$params['ids']})", 'operators'=>array('id'=>'IN'));
-            $posts = $this->context->models['post_active']->getMulti($cond, false, 'ORDER BY id DESC');
+            $posts = $this->context->models['post_active']->getMulti($cond, false);
             $this->context->helpers['response']->setData('posts', $posts);
         }
 
@@ -152,7 +152,7 @@ class PostsController extends RESTController {
 
         $cond = array('userId'=>$params['userId']);
         $cond = $this->processAfter($params, $cond);
-        $posts = $this->context->models['post_active']->getMulti($cond, false, 'ORDER BY id DESC LIMIT 10');
+        $posts = $this->context->models['post_active']->getMulti($cond, false, 'LIMIT 10');
 
         $this->context->helpers['response']->setData('posts', $posts);
         $this->context->helpers['response']->flush();
