@@ -71,9 +71,9 @@ class App {
             $this->context->setController($path[0]);
         }
         else {
-            $this->context->setMessage('debug', count($path));
-            $this->context->setMessage('debug', getcwd()."\\c\\{$path[0]}\\{$path[1]}.php");
-            $this->context->setMessage('debug', file_exists(getcwd()."\\c\\{$path[0]}\\{$path[1]}.php"));
+            //$this->context->setMessage('debug', count($path));
+            //$this->context->setMessage('debug', getcwd()."\\c\\{$path[0]}\\{$path[1]}.php");
+            //$this->context->setMessage('debug', file_exists(getcwd()."\\c\\{$path[0]}\\{$path[1]}.php"));
             header("HTTP/1.0 404 Not Found");
             require_once '/c/error.php';
             $this->context->setController('Error');
