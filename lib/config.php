@@ -7,8 +7,8 @@ class Config {
                                     'host'      => 'localhost',
                                     //'host'      => '24.6.160.109',
                                     //'host'      => '54.225.66.76',
-                                    'user' 	=> 'root',
-                                    'pass' 	=> '0303',
+                                    'user' 	=> 'mobile1',
+                                    'pass' 	=> '@mobile-development',
                                     //'name'  => 'TheGrid'
                                     'name'  => 'broadcaster')
     );
