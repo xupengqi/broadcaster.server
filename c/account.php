@@ -156,6 +156,8 @@ class AccountController extends RESTController {
                         'username'=>$user['username'],
                         'usernameChange'=>$user['usernameChange'],
                         'email'=>$user['email'],
-                        'token'=>$user['token']);
+                        'token'=>$user['token'],
+                        'usingFb'=>$user['usingFb'],
+                        'usingGp'=>$user['usingGp']);
     }
 }
