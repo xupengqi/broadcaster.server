@@ -23,17 +23,13 @@ class AccountController extends RESTController {
 
         $user = (array)$this->context->models['user']->getSingle(array('fbId'=>$params['data']['fbId']), false);
         if (empty($user)) {
-            $user = (array)$this->context->models['user']->getSingle(array('email'=>$params['data']['email']), false);
-        }
-
-        if (empty($user)) {
             $params['data']['salt'] = $this->context->helpers['security']->generateSalt();
             $params['data']['pass'] = $this->context->helpers['security']->crypt($this->context->helpers['security']->generateSalt(), $params['data']['salt']);
             $params['data']['lastLogin'] = $this->DB_KEY_NOW;
             $user = $this->context->models['user']->createPossibleDupeUser($params['data']);
         }
         else {
-            $this->context->models['user']->update(array('fbId'=>$params['data']['fbId']), array('token'=>$params['data']['token']));
+            $this->context->models['user']->update(array('fbId'=>$params['data']['fbId']), array('token'=>$params['data']['token'], 'usingFb'=>1));
             $user['token'] = $params['data']['token'];
         }
         $this->context->helpers['response']->setData('user', $this->getUserResult($user));
@@ -47,40 +43,36 @@ class AccountController extends RESTController {
 
         $user = (array)$this->context->models['user']->getSingle(array('gPlusId'=>$params['data']['gPlusId']), false);
         if (empty($user)) {
-            $user = (array)$this->context->models['user']->getSingle(array('email'=>$params['data']['email']), false);
-        }
-
-        if (empty($user)) {
             $params['data']['salt'] = $this->context->helpers['security']->generateSalt();
             $params['data']['pass'] = $this->context->helpers['security']->crypt($this->context->helpers['security']->generateSalt(), $params['data']['salt']);
             $params['data']['lastLogin'] = $this->DB_KEY_NOW;
             $user = $this->context->models['user']->createPossibleDupeUser($params['data']);
         }
         else {
-            $this->context->models['user']->update(array('gPlusId'=>$params['data']['gPlusId']), array('token'=>$params['data']['token']));
+            $this->context->models['user']->update(array('gPlusId'=>$params['data']['gPlusId']), array('token'=>$params['data']['token'], 'usingGp'=>1));
             $user['token'] = $params['data']['token'];
         }
         $this->context->helpers['response']->setData('user', $this->getUserResult($user));
         $this->context->helpers['response']->flush();
     }
-
+    
     public function removeGPlus($params) {
         $this->context->loadModels(array('user'));
         $this->context->loadHelpers(array('response', 'session'));
         $user = $this->context->helpers['session']->authenticateWithParams($params);
-        $this->context->models['user']->update(array('gPlusId'=>$user['gPlusId']), array('gPlusId'=>$this->DB_KEY_NULL));
-        $user['gPlusId'] = '';
+        $this->context->models['user']->update(array('gPlusId'=>$user['gPlusId']), array('usingGp'=>0));
+        $user['usingGp'] = 0;
         $user['token'] = $this->context->helpers['session']->start($user['username']);
         $this->context->helpers['response']->setData('user', $this->getUserResult($user));
         $this->context->helpers['response']->flush();
     }
-
+    
     public function removeFB($params) {
         $this->context->loadModels(array('user'));
         $this->context->loadHelpers(array('response', 'session'));
         $user = $this->context->helpers['session']->authenticateWithParams($params);
-        $this->context->models['user']->update(array('fbId'=>$user['fbId']), array('fbId'=>$this->DB_KEY_NULL));
-        $user['fbId'] = '';
+        $this->context->models['user']->update(array('fbId'=>$user['fbId']), array('usingFb'=>0));
+        $user['usingFb'] = 0;
         $user['token'] = $this->context->helpers['session']->start($user['username']);
         $this->context->helpers['response']->setData('user', $this->getUserResult($user));
         $this->context->helpers['response']->flush();
@@ -134,7 +126,7 @@ class AccountController extends RESTController {
         $this->context->models['user']->updateUsername($params['userId'], $params['data']);
         $this->context->helpers['response']->flush();
     }
-
+    
     public function updateEmail($params) {
         $params = $this->checkParameters($params, array(), array('data'=>array('email'=>'')));
         $this->context->loadModels(array('user'));
