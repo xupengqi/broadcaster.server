@@ -21,7 +21,7 @@ class TagsController extends RESTController {
         $this->context->loadModels(array('tag'));
         $this->context->loadHelpers(array('session', 'response'));
     
-        $tags = $this->context->models['tag']->getMulti(array(), false, "LIMIT 20");
+        $tags = $this->context->models['tag']->getMulti(array(), false, "ORDER BY count DESC LIMIT 20");
         $tagsResult = array();
         foreach($tags as $key=>$value) {
             $tagsResult[] = $tags[$key]['name'];
