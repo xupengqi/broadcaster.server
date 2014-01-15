@@ -21,7 +21,11 @@ class AccountController extends RESTController {
         $this->context->loadModels(array('user'));
         $this->context->loadHelpers(array('session', 'response', 'security'));
 
-        $user = $this->context->models['user']->getSingle(array('fbId'=>$params['data']['fbId']), false);
+        $user = (array)$this->context->models['user']->getSingle(array('fbId'=>$params['data']['fbId']), false);
+        if (empty($user)) {
+            $user = (array)$this->context->models['user']->getSingle(array('email'=>$params['data']['email']), false);
+        }
+
         if (empty($user)) {
             $params['data']['salt'] = $this->context->helpers['security']->generateSalt();
             $params['data']['pass'] = $this->context->helpers['security']->crypt($this->context->helpers['security']->generateSalt(), $params['data']['salt']);
@@ -41,7 +45,11 @@ class AccountController extends RESTController {
         $this->context->loadModels(array('user'));
         $this->context->loadHelpers(array('session', 'response', 'security'));
 
-        $user = $this->context->models['user']->getSingle(array('gPlusId'=>$params['data']['gPlusId']), false);
+        $user = (array)$this->context->models['user']->getSingle(array('gPlusId'=>$params['data']['gPlusId']), false);
+        if (empty($user)) {
+            $user = (array)$this->context->models['user']->getSingle(array('email'=>$params['data']['email']), false);
+        }
+
         if (empty($user)) {
             $params['data']['salt'] = $this->context->helpers['security']->generateSalt();
             $params['data']['pass'] = $this->context->helpers['security']->crypt($this->context->helpers['security']->generateSalt(), $params['data']['salt']);
@@ -55,7 +63,7 @@ class AccountController extends RESTController {
         $this->context->helpers['response']->setData('user', $this->getUserResult($user));
         $this->context->helpers['response']->flush();
     }
-    
+
     public function removeGPlus($params) {
         $this->context->loadModels(array('user'));
         $this->context->loadHelpers(array('response', 'session'));
@@ -66,7 +74,7 @@ class AccountController extends RESTController {
         $this->context->helpers['response']->setData('user', $this->getUserResult($user));
         $this->context->helpers['response']->flush();
     }
-    
+
     public function removeFB($params) {
         $this->context->loadModels(array('user'));
         $this->context->loadHelpers(array('response', 'session'));
@@ -126,7 +134,7 @@ class AccountController extends RESTController {
         $this->context->models['user']->updateUsername($params['userId'], $params['data']);
         $this->context->helpers['response']->flush();
     }
-    
+
     public function updateEmail($params) {
         $params = $this->checkParameters($params, array(), array('data'=>array('email'=>'')));
         $this->context->loadModels(array('user'));
