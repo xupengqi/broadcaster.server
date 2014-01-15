@@ -4,9 +4,9 @@
 -- --------------------------------------------------------------------------------
 DELIMITER $$
 
-DROP PROCEDURE IF EXISTS `p13`.`getPostsInBound`;
+DROP PROCEDURE IF EXISTS `broadcaster`.`getPostsInBound`;
 
-CREATE PROCEDURE `p13`.`getPostsInBound` (IN swlat DECIMAL(10,6), IN swlng DECIMAL(10,6), IN nelat DECIMAL(10,6), IN nelng DECIMAL(10,6), IN lim SMALLINT, IN afterId INT(10), IN tags VARCHAR(1024))
+CREATE PROCEDURE `broadcaster`.`getPostsInBound` (IN swlat DECIMAL(10,6), IN swlng DECIMAL(10,6), IN nelat DECIMAL(10,6), IN nelng DECIMAL(10,6), IN lim SMALLINT, IN afterId INT(10), IN tags VARCHAR(1024))
 BEGIN
     
     CREATE TEMPORARY TABLE IF NOT EXISTS `PostsInBound` (

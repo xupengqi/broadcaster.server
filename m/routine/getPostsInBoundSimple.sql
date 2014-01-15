@@ -5,9 +5,9 @@
 -- --------------------------------------------------------------------------------
 DELIMITER $$
 
-DROP PROCEDURE IF EXISTS `p13`.`getPostsInBoundSimple`;
+DROP PROCEDURE IF EXISTS `broadcaster`.`getPostsInBoundSimple`;
 
-CREATE PROCEDURE `p13`.`getPostsInBoundSimple` (IN swlat DECIMAL(10,6), IN swlng DECIMAL(10,6), IN nelat DECIMAL(10,6), IN nelng DECIMAL(10,6), IN lim SMALLINT, IN afterId INT(10), IN tags VARCHAR(1024))
+CREATE PROCEDURE `broadcaster`.`getPostsInBoundSimple` (IN swlat DECIMAL(10,6), IN swlng DECIMAL(10,6), IN nelat DECIMAL(10,6), IN nelng DECIMAL(10,6), IN lim SMALLINT, IN afterId INT(10), IN tags VARCHAR(1024))
 BEGIN
     DECLARE afterInf SMALLINT DEFAULT 100;
     DECLARE maxInfluence SMALLINT DEFAULT 100;
