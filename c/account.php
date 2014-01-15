@@ -31,6 +31,7 @@ class AccountController extends RESTController {
         else {
             $this->context->models['user']->update(array('fbId'=>$params['data']['fbId']), array('token'=>$params['data']['token'], 'usingFb'=>1));
             $user['token'] = $params['data']['token'];
+            $user['usingFb'] = 1;
         }
         $this->context->helpers['response']->setData('user', $this->getUserResult($user));
         $this->context->helpers['response']->flush();
@@ -51,6 +52,7 @@ class AccountController extends RESTController {
         else {
             $this->context->models['user']->update(array('gPlusId'=>$params['data']['gPlusId']), array('token'=>$params['data']['token'], 'usingGp'=>1));
             $user['token'] = $params['data']['token'];
+            $user['usingGp'] = 1;
         }
         $this->context->helpers['response']->setData('user', $this->getUserResult($user));
         $this->context->helpers['response']->flush();
