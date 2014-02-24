@@ -9,7 +9,6 @@ class Config {
                                     //'host'      => '54.225.66.76',
                                     'user' 	=> 'mobile1',
                                     'pass' 	=> '@mobile-development',
-                                    //'name'  => 'TheGrid'
                                     'name'  => 'broadcaster')
     );
 }
