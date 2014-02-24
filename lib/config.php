@@ -2,7 +2,7 @@
 class Config {
     public $config = array(
                     'debug' => true,
-                    'appPath'	=> '/',
+                    'appPath'	=> '/broadcaster',
                     'db'	=> array(
                                     'host'      => '127.0.0.1',
                                     //'host'      => '24.6.160.109',
